@@ -98,6 +98,22 @@ public class SmartWebViewCompact {
 
     private static final String TAG = SmartWebViewCompact.class.getSimpleName();
 
+    public String getCookie(String siteName,String cookieName){
+        String CookieValue = null;
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        String cookies = cookieManager.getCookie(siteName);
+        String[] temp=cookies.split(";");
+        for (String ar1 : temp ){
+            if(ar1.contains(cookieName)){
+                String[] temp1=ar1.split("=");
+                CookieValue = temp1[1];
+                break;
+            }
+        }
+        return CookieValue;
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (Build.VERSION.SDK_INT >= 21) {
             Uri[] results = null;
@@ -351,6 +367,8 @@ public class SmartWebViewCompact {
         public void onPageFinished(WebView view, String url) {
             //findViewById(R.id.msw_welcome).setVisibility(View.GONE);
             //findViewById(R.id.msw_view).setVisibility(View.VISIBLE);
+            //String cookies = CookieManager.getInstance().getCookie(url);
+            //Toast.makeText(activity.getApplicationContext(), cookies, Toast.LENGTH_LONG).show();
             if (ASWP_SPLASH){
                 asw_splash.setVisibility(View.GONE);
             }

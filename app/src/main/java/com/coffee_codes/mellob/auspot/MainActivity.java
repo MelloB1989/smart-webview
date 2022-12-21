@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bekkostudio.compactWebview.DefaultSetting;
 import com.bekkostudio.compactWebview.SmartWebViewCompact;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     SmartWebViewCompact smartWebViewCompact = new SmartWebViewCompact();
     private static final String ONESIGNAL_APP_ID = "6c105719-a866-42eb-9ad6-88c1f3c43592";
+    String user_id, session;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         DefaultSetting.ASWR_DAYS            = 3;        //after how many days of usage would you like to show the dialoge
         DefaultSetting.ASWR_TIMES           = 10;       //overall request launch times being ignored
         DefaultSetting.ASWR_INTERVAL        = 2;        //reminding users to rate after days interval
+
+        user_id = smartWebViewCompact.getCookie("https://auspot.mellob.co", "user_id");
+        session = smartWebViewCompact.getCookie("https://auspot.mellob.co", "PHPSESSID");
+        Toast.makeText(getApplicationContext(), "USERID is: "+user_id, Toast.LENGTH_LONG).show();
 
         WebView webView = (WebView) findViewById(R.id.msw_view);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.msw_progress);
